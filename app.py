@@ -1,14 +1,16 @@
+import asyncio
+import datetime
+import logging
 import os
-import torch
+import time
+import traceback
 
-# os.system("wget -P cvec/ https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/hubert_base.pt")
+import edge_tts
 import gradio as gr
 import librosa
-import numpy as np
-import logging
+import torch
 from fairseq import checkpoint_utils
-from vc_infer_pipeline import VC
-import traceback
+
 from config import Config
 from lib.infer_pack.models import (
     SynthesizerTrnMs256NSFsid,
@@ -16,15 +18,10 @@ from lib.infer_pack.models import (
     SynthesizerTrnMs768NSFsid,
     SynthesizerTrnMs768NSFsid_nono,
 )
-import asyncio
-import edge_tts
-import time
-import datetime
-
 from rmvpe import RMVPE
+from vc_infer_pipeline import VC
 
 logging.getLogger("fairseq").setLevel(logging.WARNING)
-
 logging.getLogger("numba").setLevel(logging.WARNING)
 logging.getLogger("markdown_it").setLevel(logging.WARNING)
 logging.getLogger("urllib3").setLevel(logging.WARNING)
@@ -41,6 +38,8 @@ tts_voices = [f"{v['ShortName']}-{v['Gender']}" for v in tts_voice_list]
 model_root = "weights"
 models = [d for d in os.listdir(model_root) if os.path.isdir(f"{model_root}/{d}")]
 models.sort()
+if len(models) == 0:
+    raise ValueError("No model found in `weights` folder")
 hubert_model = None
 
 print("Loading rmvpe model...")
@@ -82,7 +81,7 @@ def model_data(model_name):
     else:
         net_g = net_g.float()
     vc = VC(tgt_sr, config)
-    n_spk = cpt["config"][-3]
+    # n_spk = cpt["config"][-3]
 
     index_files = [
         f"{model_root}/{model_name}/{f}"
@@ -211,16 +210,11 @@ def tts(
 
 
 initial_md = """
-# RVC text-to-speech demo
+# RVC text-to-speech webui
 
-This is a text-to-speech demo of RVC moe models of [rvc_okiba](https://huggingface.co/litagin/rvc_okiba) using [edge-tts](https://github.com/rany2/edge-tts).
+This is a text-to-speech webui of RVC models.
 
 Input text ➡[(edge-tts)](https://github.com/rany2/edge-tts)➡ Speech mp3 file ➡[(RVC)](https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI)➡ Final output
-
-Although the models are trained on Japanese voices and intended for Japanese text, they can also be used with other languages with the corresponding edge-tts speaker (but possibly with a Japanese accent).
-
-Input characters are limited to 280 characters, and the speech audio is limited to 20 seconds in this 🤗 space.
-Run locally for longer audio.
 """
 
 app = gr.Blocks()
@@ -352,4 +346,4 @@ with app:
         )
 
 
-app.launch()
+app.launch(inbrowser=True)
