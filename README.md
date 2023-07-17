@@ -1,6 +1,6 @@
-# RVC Text-to-Speech
+# RVC Text-to-Speech WebUI
 
-This is a text-to-speech using [RVC](https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI) and [edge-tts](https://github.com/rany2/edge-tts).
+This is a text-to-speech Gradio webui for [RVC](https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI) models, using [edge-tts](https://github.com/rany2/edge-tts).
 
 ## Install
 
@@ -37,13 +37,13 @@ pip install -r requirements.txt
 Locate your RVC models in `weights/` directory as follows:
 
 ```bash
-weights/
-├── model1/
-│   ├── model1.pth
-│   └── index_file.index
-└── model2/
-    ├── model2.pth
-    └── index_file.index
+weights
+├── model1
+│   ├── my_model1.pth
+│   └── my_index_file_for_model1.index
+└── model2
+    ├── my_model2.pth
+    └── my_index_file_for_model2.index
 ...
 ```
 
