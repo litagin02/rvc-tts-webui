@@ -2,9 +2,11 @@
 
 This is a text-to-speech Gradio webui for [RVC](https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI) models, using [edge-tts](https://github.com/rany2/edge-tts).
 
+![Screenshot](assets/screenshot.jpg)
+
 ## Install
 
-Requirements: Checked for Python 3.10 on Windows 11.
+Requirements: Tested for Python 3.10 on Windows 11.
 
 ```bash
 git clone https://github.com/litagin02/rvc-tts-webui.git
@@ -16,13 +18,11 @@ curl -L -O https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/rmvpe
 
 # Make virtual environment
 python -m venv venv
-## Windows
+# Activate venv (for Windows)
 venv\Scripts\activate
 
-# Install PyTorch
+# Install PyTorch manually if you want to use NVIDIA GPU (Windows)
 # See https://pytorch.org/get-started/locally/ for more details
-
-## If you want to use GPU (Windows):
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
 # Install requirements
@@ -50,7 +50,7 @@ Each model directory should contain exactly one `.pth` file and at most one `.in
 ## Launch
 
 ```bash
-# Activate virtual environment (for Windows)
+# Activate venv (for Windows)
 venv\Scripts\activate
 
 python app.py
