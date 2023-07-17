@@ -7,8 +7,8 @@ This is a text-to-speech using [RVC](https://github.com/RVC-Project/Retrieval-ba
 Requirements: Checked for Python 3.10 on Windows 11.
 
 ```bash
-git clone https://github.com/litagin02/rvc-tts.git
-cd rvc-tts
+git clone https://github.com/litagin02/rvc-tts-webui.git
+cd rvc-tts-webui
 
 # Download models
 curl -L -O https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/hubert_base.pt
