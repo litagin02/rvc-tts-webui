@@ -52,5 +52,8 @@ Each model directory should contain exactly one `.pth` file and at most one `.in
 ## Launch
 
 ```bash
+# Activate virtual environment (for Windows)
+venv\Scripts\activate
+
 python app.py
 ```
