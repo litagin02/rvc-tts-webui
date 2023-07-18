@@ -2,7 +2,7 @@ edge_tts==6.1.7
 fairseq==0.12.2
 faiss_cpu==1.7.4
 gradio==3.36.1
-gradio-client==0.2.9
+gradio_client==0.2.9
 librosa==0.9.1
 numpy==1.23.5
 praat-parselmouth==0.4.3
