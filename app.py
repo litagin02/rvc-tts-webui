@@ -237,7 +237,7 @@ with app:
             model_name = gr.Dropdown(label="Model", choices=models, value=models[0])
             f0_key_up = gr.Number(
                 label="Transpose (the best value depends on the models and speakers)",
-                value=1,
+                value=0,
             )
         with gr.Column():
             f0_method = gr.Radio(
