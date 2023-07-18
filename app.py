@@ -49,11 +49,14 @@ print("rmvpe model loaded.")
 
 def model_data(model_name):
     # global n_spk, tgt_sr, net_g, vc, cpt, version, index_file
-    pth_path = [
+    pth_files = [
         f"{model_root}/{model_name}/{f}"
         for f in os.listdir(f"{model_root}/{model_name}")
         if f.endswith(".pth")
-    ][0]
+    ]
+    if len(pth_files) == 0:
+        raise ValueError(f"No pth file found in {model_root}/{model_name}")
+    pth_path = pth_files[0]
     print(f"Loading {pth_path}")
     cpt = torch.load(pth_path, map_location="cpu")
     tgt_sr = cpt["config"][-1]
@@ -202,7 +205,12 @@ def tts(
             edge_output_filename,
             (tgt_sr, audio_opt),
         )
-
+    except EOFError:
+        info = """
+It seems that edge-tts output is empty. This may occur when the input text and the speaker do not match.
+For example, maybe you entered Japanese (without alphabets) text but chose non-Japanese speaker?"""
+        print(info)
+        return info, None, None
     except:
         info = traceback.format_exc()
         print(info)
