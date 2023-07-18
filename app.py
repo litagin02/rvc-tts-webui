@@ -206,11 +206,11 @@ def tts(
             (tgt_sr, audio_opt),
         )
     except EOFError:
-        info =(
+        info = (
             "It seems that the edge-tts output is not valid. "
             "This may occur when the input text and the speaker do not match. "
             "For example, maybe you entered Japanese (without alphabets) text but chose non-Japanese speaker?"
-            )
+        )
         print(info)
         return info, None, None
     except:
