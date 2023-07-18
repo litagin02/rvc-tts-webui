@@ -36,10 +36,12 @@ tts_voice_list = asyncio.get_event_loop().run_until_complete(edge_tts.list_voice
 tts_voices = [f"{v['ShortName']}-{v['Gender']}" for v in tts_voice_list]
 
 model_root = "weights"
-models = [d for d in os.listdir(model_root) if os.path.isdir(f"{model_root}/{d}")]
-models.sort()
+models = [
+    d for d in os.listdir(model_root) if os.path.isdir(os.path.join(model_root, d))
+]
 if len(models) == 0:
     raise ValueError("No model found in `weights` folder")
+models.sort()
 hubert_model = None
 
 print("Loading rmvpe model...")
@@ -50,8 +52,8 @@ print("rmvpe model loaded.")
 def model_data(model_name):
     # global n_spk, tgt_sr, net_g, vc, cpt, version, index_file
     pth_files = [
-        f"{model_root}/{model_name}/{f}"
-        for f in os.listdir(f"{model_root}/{model_name}")
+        os.path.join(model_root, model_name, f)
+        for f in os.listdir(os.path.join(model_root, model_name))
         if f.endswith(".pth")
     ]
     if len(pth_files) == 0:
@@ -87,8 +89,8 @@ def model_data(model_name):
     # n_spk = cpt["config"][-3]
 
     index_files = [
-        f"{model_root}/{model_name}/{f}"
-        for f in os.listdir(f"{model_root}/{model_name}")
+        os.path.join(model_root, model_name, f)
+        for f in os.listdir(os.path.join(model_root, model_name))
         if f.endswith(".index")
     ]
     if len(index_files) == 0:

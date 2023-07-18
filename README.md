@@ -48,6 +48,8 @@ weights
 
 Each model directory should contain exactly one `.pth` file and at most one `.index` file. Directory names are used as model names.
 
+It seems that non-ASCII characters in path names gave faiss errors (like `weights/モデル1/index.index`), so please avoid them.
+
 ## Launch
 
 ```bash
