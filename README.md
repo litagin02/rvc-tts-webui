@@ -60,3 +60,18 @@ venv\Scripts\activate
 
 python app.py
 ```
+
+## Troubleshooting
+
+```
+error: Microsoft Visual C++ 14.0 or greater is required. Get it with "Microsoft C++ Build Tools": https://visualstudio.microsoft.com/visual-cpp-build-tools/
+      [end of output]
+
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for fairseq
+Failed to build fairseq
+ERROR: Could not build wheels for fairseq, which is required to install pyproject.toml-based projects
+```
+
+Maybe fairseq needs Microsoft C++ Build Tools.
+[Download installer](https://visualstudio.microsoft.com/ja/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16) and install it.
