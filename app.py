@@ -42,11 +42,6 @@ models = [
 if len(models) == 0:
     raise ValueError("No model found in `weights` folder")
 models.sort()
-hubert_model = None
-
-print("Loading rmvpe model...")
-rmvpe_model = RMVPE("rmvpe.pt", config.is_half, config.device)
-print("rmvpe model loaded.")
 
 
 def model_data(model_name):
@@ -115,7 +110,16 @@ def load_hubert():
         hubert_model = hubert_model.half()
     else:
         hubert_model = hubert_model.float()
-    hubert_model.eval()
+    return hubert_model.eval()
+
+
+print("Loading hubert model...")
+hubert_model = load_hubert()
+print("Hubert model loaded.")
+
+print("Loading rmvpe model...")
+rmvpe_model = RMVPE("rmvpe.pt", config.is_half, config.device)
+print("rmvpe model loaded.")
 
 
 def tts(

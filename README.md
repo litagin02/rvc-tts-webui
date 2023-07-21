@@ -61,6 +61,14 @@ venv\Scripts\activate
 python app.py
 ```
 
+## Update
+
+```bash
+git pull
+venv\Scripts\activate
+pip install -r requirements.txt --upgrade
+```
+
 ## Troubleshooting
 
 ```
