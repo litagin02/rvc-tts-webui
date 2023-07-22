@@ -10,7 +10,7 @@ This can run on CPU without GPU (but slow).
 
 ## Install
 
-Requirements: Tested for Python 3.10 on Windows 11.
+Requirements: Tested for Python 3.10 on Windows 11. Python 3.11 is probably not supported, so please use Python 3.10.
 
 ```bash
 git clone https://github.com/litagin02/rvc-tts-webui.git
