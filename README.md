@@ -35,7 +35,7 @@ pip install -r requirements.txt
 
 ## Locate RVC models
 
-Locate your RVC models in `weights/` directory as follows:
+Place your RVC models in `weights/` directory as follows:
 
 ```bash
 weights
