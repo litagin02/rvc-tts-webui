@@ -7,3 +7,5 @@ numpy==1.23.5
 praat-parselmouth==0.4.3
 pyworld==0.3.4
 torchcrepe==0.0.20
+fastapi==0.103.1
+uvicorn==0.23.2
