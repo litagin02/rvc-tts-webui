@@ -1,0 +1,18 @@
+name: Deploy to Local Directory
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, sagiri]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Copy repo to destination
+        run: |
+          cp -R . C:\Users\Sagiri\workspace\rvc-tts-webui-fastapi-conversion

@@ -1,8 +1,12 @@
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
+import argparse
+import uvicorn
+
 
 from tts import tts
+
 
 app = FastAPI()
 
@@ -18,29 +22,32 @@ class RvcOptions(BaseModel):
     protect0: float
 
 
+def yield_audio(audio_arr):
+    yield from audio_arr
+
+
 @app.post("/tts")
-async def gura(options: RvcOptions | None = None):
+def convert_text_to_rvc_speech(options: RvcOptions | None = None):
     try:
-        (
-            model_name,
-            speed,
-            tts_text,
-            tts_voice,
-            f0_key_up,
-            f0_method,
-            index_rate,
-            protect0,
-        ) = options
         info_text, edge_tts_output, tts_output = tts(
-            model_name,
-            speed,
-            tts_text,
-            tts_voice,
-            f0_key_up,
-            f0_method,
-            index_rate,
-            protect0,
+            options.model_name,
+            options.speed,
+            options.tts_text,
+            options.tts_voice,
+            options.f0_key_up,
+            options.f0_method,
+            options.index_rate,
+            options.protect0,
         )
-        return FileResponse(tts_output)
+        print(f"info_text: ${info_text}")
+        print(f"edge_tts_output: ${edge_tts_output}")
+        print(f"tts_output: ${tts_output}")
+        return StreamingResponse(yield_audio(tts_output[1]), media_type="audio/wav")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+if __name__ == "main":
+    parser = argparse.ArgumentParser()
+    args = parser.parse_args()
+    uvicorn.run(app, port=8001)
